@@ -1,0 +1,5 @@
+﻿This is a file with 5 lines.
+The lines all start with "the".
+The first letter is always capitalized.
+The lines are in a full sentence format.
+This is the last line in the paragraph after the previous line.
