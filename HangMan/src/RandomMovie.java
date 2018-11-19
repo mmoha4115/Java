@@ -30,8 +30,8 @@ public class RandomMovie {
 
 
     public static void main(String [] args) {
-        int [] ray = new int[10];
-        System.out.println(ray.length == 0);
+//        int [] ray = new int[10];
+//        System.out.println(ray.length == 0);
 
 //        RandomMovie movie = new RandomMovie();
 //        String aMovie = new String();

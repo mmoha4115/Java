@@ -4,55 +4,93 @@ public class Game {
     public String getMovie(){
 //        get a random movie
         RandomMovie movies = new RandomMovie();
-        String movie = movies.ArandomMovie();
-        return movie;
+        return movies.ArandomMovie();
     }
     public String get_Movie(String movie){
 //        get underscore string of a movie
         CreateUnderScore underMovies = new CreateUnderScore();
-        String undermovie = underMovies.UnderscoreMovie(movie);
-        return  undermovie;
+        return underMovies.UnderscoreMovie(movie);
     }
 
     public int [] getLocationOfLetter(String movie,char letter){
 //        get location(s) of letter in movie name
         FillUnderScore search = new FillUnderScore();
-        int [] listOfLocations = search.LocationOfChar(movie,letter);
-        return listOfLocations;
+        return search.LocationOfChar(movie,letter);
     }
 
     public String addLetter(String underMovie, int [] locationsOfLetter, char letter){
+//        add letter to underscore string
         FillUnderScore fillLetter = new FillUnderScore();
-        String added_Movie = fillLetter.FillunderScore(locationsOfLetter,underMovie,letter);
-        return added_Movie;
+        return fillLetter.FillunderScore(locationsOfLetter,underMovie,letter);
     }
 
-    
+    public boolean inusedletter(char [] usedletters, char letter){
+//        keep track if all letter are added
+        boolean found = false;
+        for (char c: usedletters){
+            if (c == letter){
+                found = true;
+            }
+        }return found;
+    }
 
-    public static void main(String [] args){
+    public boolean exit(String movie, String underMovie){
+//        checks if movie and undermovie are matched in a char level
+//        the "==" and "Objects.equal" did not work for me - they were either all ways false or true
+        char [] charMovie = movie.toCharArray();
+        char [] charUnderMovie = underMovie.toCharArray();
+        int counter = 0;
+        for (int i = 0;i<charMovie.length;i++){
+            if (charMovie[i] == charUnderMovie[i]){
+                counter++;
+            }
+        }
+        if (counter == charMovie.length){
+            return true;
+        }else {return false;}
+    }
+
+
+
+
+    public static void main(String [] args) {
         Game game = new Game();
         String movie = game.getMovie();
-        System.out.println(movie);
         String underMovie = game.get_Movie(movie);
 //        track incorrect letters, usedletter
-        boolean incorrectLetterTracker = false;
-        char [] usedLetter = new char[27];
+        char[] usedLetter = new char[27];
         boolean inUsedLetters = false;
-
-        Scanner scanner = new Scanner(System.in);
-        char letter = scanner.next().charAt(0);
-        System.out.println(letter);
-        int [] locationOfLetter = game.getLocationOfLetter(movie,letter);
-        if (locationOfLetter[0]==-1){
-            incorrectLetterTracker = true;
-        }
-
-        String newUnderMovie = game.addLetter(underMovie,locationOfLetter,letter);
-        System.out.println("this is length: "+movie.length()+" of "+movie);
-        System.out.println("this is length: "+underMovie.length()+" of "+underMovie);
-        System.out.println(newUnderMovie+" is the undermovie filled");
-
+        int counter = 0;
+        boolean gameover = false;
+        int wrongletters=0;
+        while (!gameover) {
+            System.out.printf("You are guessing: %s%n", underMovie);
+            System.out.printf("You have guessed (%d) wrong letters: %n", wrongletters);
+            System.out.print("Guess a letter: ");
+            Scanner scanner = new Scanner(System.in);
+            char letter = scanner.next().charAt(0);
+//            checks if letter already used
+            inUsedLetters = game.inusedletter(usedLetter, letter);
+//            if not used then
+            if (!inUsedLetters) {
+//                adds letter to used
+                usedLetter[counter] = letter;
+//                preps next index of usedletter
+                counter++;
+//                finds location of letter in movie name
+                int[] locationOfLetter = game.getLocationOfLetter(movie, letter);
+//                if letter not in movie name return -1 else
+                if (locationOfLetter[0] != -1) {
+//                    adds letter to any location found in movie name
+                    underMovie = game.addLetter(underMovie, locationOfLetter, letter);
+//                    else - wrongletter is incremented to show how many wrongletter used
+                }else{wrongletters++;}
+//                notify user of using letter previously
+            }else {System.out.println(letter + " has been used.");}
+//            outside if function
+//            update gameover ie. check if all letters found
+            gameover = game.exit(movie,underMovie);
+        }System.out.println("Thank you playing");
     }
-
 }
 

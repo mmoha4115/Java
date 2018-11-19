@@ -1,3 +1,4 @@
+// This is the first failed attempt at building up the game - I had to restart and build block by block - which is a better way than trying all at once
 //import java.util.Scanner;
 //
 //public class Main {
