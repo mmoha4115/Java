@@ -24,6 +24,8 @@ public class RandomMovie {
         }
         Random randomnum = new Random();
          return list[randomnum.nextInt(count)];
+//        String m = "a a";
+//        return m;
     }
 
 

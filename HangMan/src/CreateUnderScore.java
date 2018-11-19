@@ -3,7 +3,11 @@ public class CreateUnderScore {
     public String UnderscoreMovie(String movie) {
          char [] newString = movie.toCharArray();
         for (int i = 0; i < movie.length(); i++) {
-            newString[i] = '_';
+            if (newString[i] != ' '){
+                newString[i] = '_';
+            }else {
+                newString[i] = ' ';
+            }
         }
         return String.valueOf(newString);
     }

@@ -4,7 +4,6 @@ public class FillUnderScore {
     public int [] LocationOfChar(String movie,char letter){
         int count = 0;
         int [] loc = new int[movie.length()];
-        System.out.println(movie.length());
         int index = 0;
         count = movie.indexOf(letter,count);
         loc[index] = count;
